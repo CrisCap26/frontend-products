@@ -6,7 +6,7 @@ import { deleteProduct } from '@/app/products/product.api';
 import { useRouter } from 'next/navigation';
 export function ProductCard({ product }: any) {
     const router = useRouter();
-    async function handleRemoveProduct(id) {
+    async function handleRemoveProduct(id: string) {
         console.log(id)
         await deleteProduct(id);
         //refrecar la memoria de next
@@ -44,7 +44,10 @@ export function ProductCard({ product }: any) {
                 <Button
                     className='mt-5'
                     variant="destructive"
-                    onClick={() => handleRemoveProduct(product.id)}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleRemoveProduct(product.id)
+                    }}
                 >
                     Eliminar
                 </Button>
